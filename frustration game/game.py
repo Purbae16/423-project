@@ -3,12 +3,13 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import random
 
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 # Initialize player and enemy
 player = Player(50, 50, 10, 10)
-enemy = Enemy(100, 100, 5, 5, 15, (1.0, 1.0, 0.0))  # Using RGB format for color
+
 
 # Function to update game state
 def update(value):
