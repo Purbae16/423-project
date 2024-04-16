@@ -7,11 +7,11 @@ import random
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-# Initialize player and enemy
+
 player = Player(50, 50, 10, 10)
 
 
-# Function to update game state
+
 def update(value):
     keys = glutGetModifiers()
     if keys & GLUT_ACTIVE_SHIFT:
