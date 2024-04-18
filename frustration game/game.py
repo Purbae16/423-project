@@ -2,6 +2,8 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import random
+from player import Player
+
 
 
 SCREEN_WIDTH = 800
@@ -18,14 +20,14 @@ def update(value):
         player.move_special(GLUT_ACTIVE_SHIFT)
     else:
         player.move_normal()
-    enemy.move(50, 250)
+    #enemy.move(50, 250)
     glutTimerFunc(50, update, 0)  # Call update function again after 50 milliseconds
 
 # Function to draw the scene
 def draw():
     glClear(GL_COLOR_BUFFER_BIT)
     player.draw()
-    enemy.draw()
+    #enemy.draw()
     glutSwapBuffers()
 
 # Function to handle window resizing
