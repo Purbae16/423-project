@@ -4,31 +4,33 @@ from OpenGL.GLU import *
 import random
 from player import Player
 
-
-
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-
 player = Player(50, 50, 10, 10)
+#def update(value):
+    # No need to check for modifiers here
+    #player.move_normal()
+    #glutTimerFunc(50, update, 0)  # Call update function again after 50 milliseconds
 
-
-
-def update(value):
-    keys = glutGetModifiers()
-    if keys & GLUT_ACTIVE_SHIFT:
-        player.move_special(GLUT_ACTIVE_SHIFT)
-    else:
-        player.move_normal()
-    #enemy.move(50, 250)
-    glutTimerFunc(50, update, 0)  # Call update function again after 50 milliseconds
+# Function to handle arrow key presses
+def specialKeyListener(key, x, y):
+    if key == GLUT_KEY_LEFT:
+        player.move('LEFT')
+    elif key == GLUT_KEY_RIGHT:
+        player.move('RIGHT')
+    elif key == GLUT_KEY_DOWN:
+        player.move('DOWN')
+    elif key == GLUT_KEY_UP:
+        player.move('UP')
+    glutPostRedisplay()
 
 # Function to draw the scene
 def draw():
     glClear(GL_COLOR_BUFFER_BIT)
     player.draw()
-    #enemy.draw()
     glutSwapBuffers()
+    glutPostRedisplay()
 
 # Function to handle window resizing
 def reshape(width, height):
@@ -50,7 +52,9 @@ gluOrtho2D(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT)
 # Register callbacks
 glutDisplayFunc(draw)
 glutReshapeFunc(reshape)
-glutTimerFunc(0, update, 0)
+glutSpecialFunc(specialKeyListener)  # Register specialKeyListener for arrow key presses
+#glutTimerFunc(0, update, 0)
 
 # Start the main loop
 glutMainLoop()
+
