@@ -1,13 +1,14 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
-import random
 from player import Player
+from field import Field
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-player = Player(50, 50, 10, 10)
+field = Field(250, 250, 200, 200) 
+player = Player(260, 260, 10, 10)
 #def update(value):
     # No need to check for modifiers here
     #player.move_normal()
@@ -28,7 +29,9 @@ def specialKeyListener(key, x, y):
 # Function to draw the scene
 def draw():
     glClear(GL_COLOR_BUFFER_BIT)
+    field.draw()
     player.draw()
+      # Draw the field
     glutSwapBuffers()
     glutPostRedisplay()
 
