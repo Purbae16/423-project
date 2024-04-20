@@ -41,7 +41,7 @@ def handleMovement():
     if GLUT_KEY_UP in pressed_keys:
         direction_y += 1
 
-    player.move(direction_x, direction_y)
+    player.move(direction_x, direction_y,field)
     glutPostRedisplay()
 
 # Function to draw the scene

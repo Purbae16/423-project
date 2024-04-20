@@ -13,7 +13,7 @@ class Player:
         self.height = height
         self.vel = 5
 
-    def move(self, direction_x, direction_y):
+    def move(self, direction_x, direction_y,field):
         if direction_x < 0 and self.x > 0:
             self.x -= self.vel
         if direction_x > 0 and self.x < 800 - self.width:
