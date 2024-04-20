@@ -8,7 +8,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 field = Field(250, 250, 200, 200) 
-player = Player(260, 260, 10, 10)
+player = Player(260, 260, 10)
 #def update(value):
     # No need to check for modifiers here
     #player.move_normal()
