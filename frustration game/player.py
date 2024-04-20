@@ -11,14 +11,14 @@ class Player:
         self.vel = vel
         self.color = color
 
-    def move(self, direction):
-        if direction == 'LEFT' and self.x > 0:
+    def move(self, direction_x, direction_y):
+        if direction_x < 0 and self.x > 0:
             self.x -= self.vel
-        if direction == 'RIGHT' and self.x < 800 - self.width:
+        if direction_x > 0 and self.x < 800 - self.width:
             self.x += self.vel
-        if direction == 'DOWN' and self.y > 0:
+        if direction_y < 0 and self.y > 0:
             self.y -= self.vel
-        if direction == 'UP' and self.y < 600 - self.height:
+        if direction_y > 0 and self.y < 600 - self.height:
             self.y += self.vel
 
     def draw(self):

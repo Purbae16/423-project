@@ -9,24 +9,35 @@ SCREEN_HEIGHT = 600
 
 field = Field(250, 250, 200, 200) 
 player = Player(260, 260, 10, 10)
-#def update(value):
-    # No need to check for modifiers here
-    #player.move_normal()
-    #glutTimerFunc(50, update, 0)  # Call update function again after 50 milliseconds
+
+# Keep track of pressed keys
+pressed_keys = set()
 
 # Function to handle arrow key presses
-def specialKeyListener(key, x, y):
-    if key == GLUT_KEY_LEFT and GLUT_KEY_UP:
-        player.move('LEFT')
-        player.move('UP')
-    elif key == GLUT_KEY_LEFT:
-        player.move('LEFT')
-    elif key == GLUT_KEY_RIGHT:
-        player.move('RIGHT')
-    elif key == GLUT_KEY_DOWN:
-        player.move('DOWN')
-    elif key == GLUT_KEY_UP:
-        player.move('UP')
+def specialKeyDownListener(key, x, y):
+    pressed_keys.add(key)
+    handleMovement()
+
+# Function to handle arrow key releases
+def specialKeyUpListener(key, x, y):
+    pressed_keys.remove(key)
+    handleMovement()
+
+# Function to handle player movement
+def handleMovement():
+    direction_x = 0
+    direction_y = 0
+
+    if GLUT_KEY_LEFT in pressed_keys:
+        direction_x -= 1
+    if GLUT_KEY_RIGHT in pressed_keys:
+        direction_x += 1
+    if GLUT_KEY_DOWN in pressed_keys:
+        direction_y -= 1
+    if GLUT_KEY_UP in pressed_keys:
+        direction_y += 1
+
+    player.move(direction_x, direction_y)
     glutPostRedisplay()
 
 # Function to draw the scene
@@ -34,7 +45,6 @@ def draw():
     glClear(GL_COLOR_BUFFER_BIT)
     field.draw()
     player.draw()
-      # Draw the field
     glutSwapBuffers()
     glutPostRedisplay()
 
@@ -58,9 +68,8 @@ gluOrtho2D(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT)
 # Register callbacks
 glutDisplayFunc(draw)
 glutReshapeFunc(reshape)
-glutSpecialFunc(specialKeyListener)  # Register specialKeyListener for arrow key presses
-#glutTimerFunc(0, update, 0)
+glutSpecialFunc(specialKeyDownListener)  # Register specialKeyDownListener for key press
+glutSpecialUpFunc(specialKeyUpListener)   # Register specialKeyUpListener for key release
 
 # Start the main loop
 glutMainLoop()
-
