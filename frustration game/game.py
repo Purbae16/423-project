@@ -16,7 +16,10 @@ player = Player(260, 260, 10, 10)
 
 # Function to handle arrow key presses
 def specialKeyListener(key, x, y):
-    if key == GLUT_KEY_LEFT:
+    if key == GLUT_KEY_LEFT and GLUT_KEY_UP:
+        player.move('LEFT')
+        player.move('UP')
+    elif key == GLUT_KEY_LEFT:
         player.move('LEFT')
     elif key == GLUT_KEY_RIGHT:
         player.move('RIGHT')
