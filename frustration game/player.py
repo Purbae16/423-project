@@ -23,12 +23,27 @@ class Player:
         if direction == 'UP' and self.y < 600 - self.width:
             self.y += self.vel
 
-
     def draw(self):
-        glColor3f(*self.color)  # Set the drawing color
-        line.drawLine(self.x, self.y, self.x + self.width, self.y)
-        line.drawLine(self.x + self.width, self.y, self.x + self.width, self.y + self.width)
-        line.drawLine(self.x, self.y + self.width, self.x + self.width, self.y + self.width)
-        line.drawLine(self.x, self.y, self.x, self.y + self.width)
-    
-    
+        # Set the outline color
+        glColor3f(*self.color)
+        
+        # Draw the outline of the square
+        line.drawLine(self.x, self.y, self.x + self.width, self.y)  # Top edge
+        line.drawLine(self.x + self.width, self.y, self.x + self.width, self.y - self.width)  # Right edge
+        line.drawLine(self.x, self.y - self.width, self.x + self.width, self.y - self.width)  # Bottom edge
+        line.drawLine(self.x, self.y, self.x, self.y - self.width)  # Left edge
+
+        # Fill the square
+        self.fillSquare()
+
+    def fillSquare(self):
+        # Set the fill color
+        glColor3f(*self.color)
+        
+        # Calculate the coordinates of the bottom-left corner of the square
+        x0 = self.x
+        y0 = self.y - self.width
+
+        # Draw horizontal lines to fill the square
+        for y in range(y0, self.y + 1):
+            line.drawLine(x0, y, self.x + self.width, y)
