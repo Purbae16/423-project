@@ -1,13 +1,15 @@
 from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
+from midpoint import Line
+
+line = Line()
 
 class Player:
-    def __init__(self, x, y, width, height, vel=5, color=(1.0, 0.0, 0.0)):
+    def __init__(self, x, y, width, vel=5, color=(1.0, 0.0, 0.0)):
         self.x = x
         self.y = y
         self.width = width
-        self.height = height
         self.vel = vel
         self.color = color
 
@@ -21,11 +23,12 @@ class Player:
         if direction_y > 0 and self.y < 600 - self.height:
             self.y += self.vel
 
+
     def draw(self):
         glColor3f(*self.color)  # Set the drawing color
-        glBegin(GL_QUADS)
-        glVertex2f(self.x, self.y)
-        glVertex2f(self.x + self.width, self.y)
-        glVertex2f(self.x + self.width, self.y + self.height)
-        glVertex2f(self.x, self.y + self.height)
-        glEnd()
+        line.drawLine(self.x, self.y, self.x + self.width, self.y)
+        line.drawLine(self.x + self.width, self.y, self.x + self.width, self.y + self.width)
+        line.drawLine(self.x, self.y + self.width, self.x + self.width, self.y + self.width)
+        line.drawLine(self.x, self.y, self.x, self.y + self.width)
+    
+    
