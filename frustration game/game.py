@@ -3,11 +3,15 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from player import Player
 from field import Field
+from level_selector import level_selector
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
-field = Field(250, 250, 200, 200) 
+
+level=2
+
+field= level_selector(level)
 player = Player(260, 260, 10, 10)
 
 # Keep track of pressed keys
