@@ -1,0 +1,59 @@
+from OpenGL.GL import *
+from Tiles import Tile, Greentile
+
+
+class Field2:
+    def __init__(self):
+        self.tiles=[]
+        self.safe=[]
+
+
+    def draw(self):
+
+        green_x=110
+        green_y=290
+
+        x=200
+        y=350
+
+        for i in range(2):
+            for j in range(3):
+                g=Greentile(green_x,green_y)
+                self.safe+=[g]
+                green_x+=g.width
+            green_x=110
+            green_y-=g.height
+
+        # if len(self.tiles)%2==0:
+        #     glColor3f(8.0, 8.0, 8.0)
+        # else:
+        #     glColor3f(6.0, 6.0, 6.0)
+        for i in range(6):
+            for j in range(12):
+                t=Tile(x,y)
+                self.tiles+=[t]
+                x+=t.width
+            x=200
+            y=y-t.height
+
+
+        g_x=560
+        g_y=290
+
+
+
+        for i in range(2):
+            for j in range(3):
+                g=Greentile(g_x,g_y)
+                self.safe+=[g]
+                g_x+=g.width
+            g_x=560
+            g_y=g_y-g.height
+
+
+
+
+
+
+
+
