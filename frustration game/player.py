@@ -3,7 +3,7 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from midpoint import Line
 
-line = Line()
+
 
 class Player:
     def __init__(self, x, y, width, height):

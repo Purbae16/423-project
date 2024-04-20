@@ -9,9 +9,9 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 
-level=1
-field = Field(250, 250, 200, 200)
-player = Player(260, 260, 10, 10)
+level=2
+field, player =level_selector(level)
+
 
 # Keep track of pressed keys
 pressed_keys = set()
@@ -46,7 +46,6 @@ def handleMovement():
 # Function to draw the scene
 def draw():
     glClear(GL_COLOR_BUFFER_BIT)
-
     field.draw()
     player.draw()
     glutSwapBuffers()

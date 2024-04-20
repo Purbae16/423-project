@@ -3,6 +3,9 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
 class Line:
+
+    def __init__(self,x0,y0,x1,y1):
+        self.drawLine(x0,y0,x1,y1)
     def drawPoint(self, x, y):
         glPointSize(1.5)
         glBegin(GL_POINTS)
