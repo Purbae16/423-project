@@ -34,15 +34,21 @@ class Field2:
             g_x=560
             g_y=g_y-g.height
 
-        # if len(self.tiles)%2==0:
-        #     glColor3f(8.0, 8.0, 8.0)
-        # else:
-        #     glColor3f(6.0, 6.0, 6.0)
+
+
         for i in range(6):
             for j in range(12):
-                t=Tile(x,y)
-                self.tiles+=[t]
-                x+=t.width
+                if len(self.tiles) % 2 == 0:
+                    glColor3f(0.8,0.8,0.8)
+                    t = Tile(x, y)
+                    self.tiles += [t]
+                    x += t.width
+                else:
+                    glColor3f(0.6,0.6,0.6)
+                    t = Tile(x, y)
+                    self.tiles += [t]
+                    x += t.width
+
             x=200
             y=y-t.height
         

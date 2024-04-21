@@ -112,7 +112,6 @@ class Player:
         self.vel = vel
         self.color = color
 
-
     def move(self, direction_x, direction_y, field):
         # Calculate the next position
         next_x = self.x + direction_x * self.vel
@@ -120,8 +119,8 @@ class Player:
 
         # Check if the next position is within the game region
         for tile in field.tiles + field.safe:
-            if (next_x >= tile.startx and next_x <= tile.startx + tile.width) and \
-               (next_y >= tile.starty - tile.height and next_y <= tile.starty):
+            if (next_x + self.width >= tile.startx and next_x <= tile.startx + tile.width) and \
+                    (next_y >= tile.starty - tile.height and next_y <= tile.starty):
                 # The next position is within a tile, so update the player's position
                 self.x = next_x
                 self.y = next_y
