@@ -1,5 +1,4 @@
 from OpenGL.GL import *
-
 import random
 
 
@@ -17,6 +16,8 @@ class Tile:  # x0 is top left, x1 is top right, x2 is bottom left, x3 is bottom 
         Line(x0,y0-self.height,x0+self.width,y0-self.height)
         Line(x0+self.width,y0-self.height,x0+self.width,y0)
 
+        fillSquare(x0, y0, self.width, (1,1,1))
+
 class Greentile:
     def __init__(self, x0,y0):
 
@@ -31,6 +32,7 @@ class Greentile:
         Line(x0,y0-self.height,x0+self.width,y0-self.height)
         Line(x0+self.width,y0-self.height,x0+self.width,y0)
 
+        fillSquare(x0, y0, self.width, (0.0,0.8,0.1))
 
 
 def WritePixel(x, y):
@@ -129,3 +131,13 @@ def Line(x1, y1, x2, y2):
             y = y + 1
         else:
             d = d + incE
+
+
+def fillSquare(x,y, width, color=(0.0,0.0,0.0) ):
+        glColor3f(*color)
+        
+        x0 = x
+        y0 = y - width
+
+        for i in range(y0, y + 1):
+            Line(x0, i, x + width, i)

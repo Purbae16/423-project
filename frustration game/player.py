@@ -13,14 +13,14 @@ class Player:
         self.vel = vel
         self.color = color
 
-    def move(self, direction):
-        if direction == 'LEFT' and self.x > 0:
+    def move(self, direction_x, direction_y):
+        if direction_x < 0 and self.x > 0:
             self.x -= self.vel
-        if direction == 'RIGHT' and self.x < 800 - self.width:
+        if direction_x > 0 and self.x < 800 - self.width:
             self.x += self.vel
-        if direction == 'DOWN' and self.y > 0:
+        if direction_y < 0 and self.y > 0:
             self.y -= self.vel
-        if direction == 'UP' and self.y < 600 - self.width:
+        if direction_y > 0 and self.y < 600 - self.width:
             self.y += self.vel
 
     def draw(self):
@@ -37,13 +37,10 @@ class Player:
         self.fillSquare()
 
     def fillSquare(self):
-        # Set the fill color
         glColor3f(*self.color)
         
-        # Calculate the coordinates of the bottom-left corner of the square
         x0 = self.x
         y0 = self.y - self.width
 
-        # Draw horizontal lines to fill the square
         for y in range(y0, self.y + 1):
             line.drawLine(x0, y, self.x + self.width, y)
