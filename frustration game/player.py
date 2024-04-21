@@ -13,15 +13,20 @@ class Player:
         self.height = height
         self.vel = 5
 
-    def move(self, direction_x, direction_y,field):
-        if direction_x < 0 and self.x > 0:
-            self.x -= self.vel
-        if direction_x > 0 and self.x < 800 - self.width:
-            self.x += self.vel
-        if direction_y < 0 and self.y > 0:
-            self.y -= self.vel
-        if direction_y > 0 and self.y < 600 - self.height:
-            self.y += self.vel
+
+    def move(self, direction_x, direction_y, field):
+        # Calculate the next position
+        next_x = self.x + direction_x * self.vel
+        next_y = self.y + direction_y * self.vel
+
+        # Check if the next position is within the game region
+        for tile in field.tiles + field.safe:
+            if (next_x >= tile.startx and next_x <= tile.startx + tile.width) and \
+               (next_y >= tile.starty - tile.height and next_y <= tile.starty):
+                # The next position is within a tile, so update the player's position
+                self.x = next_x
+                self.y = next_y
+                break
 
     def draw(self):
         glBegin(GL_QUADS)
