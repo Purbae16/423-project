@@ -46,7 +46,6 @@ class Field2:
             x=200
             y=y-t.height
         
-        print(self.tiles)
 
         
 
