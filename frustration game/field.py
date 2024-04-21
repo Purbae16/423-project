@@ -72,7 +72,7 @@ class Field:
             x += 1
 
     def draw_point(self, x, y):
-        glPointSize(2)
+        glPointSize(7)
         glBegin(GL_POINTS)
         glColor3f(*self.color)
         glVertex2f(x, y)

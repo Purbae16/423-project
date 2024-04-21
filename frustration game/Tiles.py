@@ -16,7 +16,7 @@ class Tile:  # x0 is top left, x1 is top right, x2 is bottom left, x3 is bottom 
         Line(x0,y0-self.height,x0+self.width,y0-self.height)
         Line(x0+self.width,y0-self.height,x0+self.width,y0)
 
-        fillSquare(x0, y0, self.width, (1,1,1))
+        #fillSquare(x0, y0, self.width, (1,1,1))
 
 class Greentile:
     def __init__(self, x0,y0):
@@ -32,10 +32,11 @@ class Greentile:
         Line(x0,y0-self.height,x0+self.width,y0-self.height)
         Line(x0+self.width,y0-self.height,x0+self.width,y0)
 
-        fillSquare(x0, y0, self.width, (0.0,0.8,0.1))
+        #fillSquare(x0, y0, self.width, (0.0,0.8,0.1))
 
 
 def WritePixel(x, y):
+    glPointSize(30)
     glBegin(GL_POINTS)
     glVertex2f(x, y)
     glEnd()

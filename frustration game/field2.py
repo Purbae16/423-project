@@ -15,6 +15,8 @@ class Field2:
 
         x=200
         y=350
+        g_x=560
+        g_y=290
 
         for i in range(2):
             for j in range(3):
@@ -23,6 +25,14 @@ class Field2:
                 green_x+=g.width
             green_x=110
             green_y-=g.height
+
+        for i in range(2):
+            for j in range(3):
+                g=Greentile(g_x,g_y)
+                self.safe+=[g]
+                g_x+=g.width
+            g_x=560
+            g_y=g_y-g.height
 
         # if len(self.tiles)%2==0:
         #     glColor3f(8.0, 8.0, 8.0)
@@ -35,20 +45,14 @@ class Field2:
                 x+=t.width
             x=200
             y=y-t.height
+        
+        print(self.tiles)
+
+        
 
 
-        g_x=560
-        g_y=290
 
-
-
-        for i in range(2):
-            for j in range(3):
-                g=Greentile(g_x,g_y)
-                self.safe+=[g]
-                g_x+=g.width
-            g_x=560
-            g_y=g_y-g.height
+        
 
 
 
