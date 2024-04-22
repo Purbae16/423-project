@@ -17,12 +17,9 @@ field, player =level_selector(level)
 
 # Keep track of pressed keys
 pressed_keys = set()
-field = Field(250, 250, 200, 200) 
-player = Player(260, 260, 10, 10)
-enemy = Enemy(50, 100, 5, 5, 15)
-enemy2 = Enemy(50, 150, 5, 5, 15)
-enemy3 = Enemy(250, 150, 5, 5, 15)
-enemy4 = Enemy(250, 200, 5, 5, 15)
+#field = Field(250, 250, 200, 200) 
+#player = Player(260, 260, 10, 10)
+
 
 
 
@@ -81,10 +78,6 @@ def draw():
     glClear(GL_COLOR_BUFFER_BIT)
     field.draw()
     player.draw()
-    enemy.draw()
-    enemy2.draw()
-    enemy3.draw()
-    enemy4.draw()
     
     glutSwapBuffers()
     glutPostRedisplay()

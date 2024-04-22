@@ -1,41 +1,59 @@
-import OpenGL.GL as gl
-import OpenGL.GLU as glu
-import OpenGL.GLUT as glut
+from OpenGL.GL import *
+from OpenGL.GLUT import *
+from OpenGL.GLU import *
+import random as rand
+
+def drawCircle(x, y, cir_x, cir_y):
+    glPointSize(7)
+    glBegin(GL_POINTS)
+    glVertex2f(x + cir_x, y + cir_y)
+    glVertex2f(y + cir_x, x + cir_y)
+
+    glVertex2f(y + cir_x, -x + cir_y)
+    glVertex2f(x + cir_x, -y + cir_y)
+
+    glVertex2f(-x + cir_x, -y + cir_y)
+    glVertex2f(-y + cir_x, -x + cir_y)
+
+    glVertex2f(-y + cir_x, x + cir_y)
+    glVertex2f(-x + cir_x, y + cir_y)
+
+    glEnd()
+    glFlush()
+
+
+def midpoint(cir_x, cir_y, radius):
+    d = 1 - radius
+    x = 0
+    y = radius
+
+    while x < y:
+        if d < 0:
+            d = d + 2 * x + 3
+        else:
+            d = d + 2 * x - 2 * y + 5
+            y = y - 1
+        x = x + 1
+        drawCircle(x, y, cir_x, cir_y)
 
 
 class Enemy:
-    def __init__(self, x, y, width, height, vel=5, color=(0,0,255), right = True):
+    def __init__(self, x, y, radius, vel=0, color=(0.0,0.0,1.0), right = True):
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+        self.radius = radius
         self.vel = vel
         self.color = color
         self.right = right
 
-    # def draw(self):
-    #     gl.glColor3f(0, 0, 0)
-    #     self.draw_circle(self.x, self.y, self.width)
+        glColor3f(0.0, 0.0, 1.0)
+        midpoint(self.x, self.y, self.radius )
 
-    #     gl.glColor3f(*self.color)
-    #     self.draw_circle(self.x, self.y, self.width)
 
     def draw(self):
-        gl.glColor3f(0, 0, 0)
-        gl.glBegin(gl.GL_POLYGON)
-        gl.glVertex2f(self.x, self.y)
-        gl.glVertex2f(self.x + self.width, self.y)
-        gl.glVertex2f(self.x + self.width, self.y + self.height)
-        gl.glVertex2f(self.x, self.y + self.height)
-        gl.glEnd()
-
-        gl.glColor3f(*self.color)
-        gl.glBegin(gl.GL_POLYGON)
-        gl.glVertex2f(self.x, self.y)
-        gl.glVertex2f(self.x + self.width, self.y)
-        gl.glVertex2f(self.x + self.width, self.y + self.height)
-        gl.glVertex2f(self.x, self.y + self.height)
-        gl.glEnd()
+        glColor3f(0.0, 0.0, 1.0)
+        midpoint(self.x, self.y, self.radius )
+        
 
 
 

@@ -1,11 +1,13 @@
 from OpenGL.GL import *
 from Tiles import Tile, Greentile
+from enemy import Enemy
 
 
 class Field2:
     def __init__(self):
         self.tiles=[]
         self.safe=[]
+        self.enemy=[]
 
 
     def draw(self):
@@ -24,7 +26,7 @@ class Field2:
                 self.safe+=[g]
                 green_x+=g.width
             green_x=110
-            green_y-=g.height
+            green_y-=g.width
 
         for i in range(2):
             for j in range(3):
@@ -44,7 +46,21 @@ class Field2:
                 self.tiles+=[t]
                 x+=t.width
             x=200
-            y=y-t.height
+            y=y-t.width
+
+        add = 0
+        for i in range(6):
+            e=Enemy(245+add, 345, 4)
+            add = add+60
+        add = 0
+        for j in range(6):
+            e=Enemy(212+add, 185, 4)
+            add = add+60
+
+    
+
+
+
         
 
         
