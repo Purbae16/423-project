@@ -69,11 +69,18 @@ class Field2:
                 add = add + 60
             self.temp+=1
 
-    def move_enemies(self):
-        for enemy in self.enemy:
-            enemy.y+=5
-            enemy.draw()
+    def move_enemies(self,vel):
 
+        for enemy in self.enemy:
+            if enemy.direction=="UP":
+                enemy.y-=vel
+                if enemy.y<=170:
+                    enemy.direction="DOWN"
+            if enemy.direction == "DOWN":
+                enemy.y += vel
+                if enemy.y >= 345:
+                    enemy.direction = "UP"
+                    enemy.y += vel
     
 
 

@@ -10,7 +10,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 
-
+death=0
 level=2
 field, player =level_selector(level)
 
@@ -24,19 +24,23 @@ pressed_keys = set()
 
 
 def animate():
-    global level
-    vel=2
+    global level,death, field, player
+
     if level == 2:
+        field.move_enemies(5)
+
         for enemy in field.enemy:
-            if enemy.direction=="UP":
-                enemy.y-=vel
-                if enemy.y<=185:
-                    enemy.direction="DOWN"
-            if enemy.direction == "DOWN":
-                enemy.y += vel
-                if enemy.y >= 345:
-                    enemy.direction = "UP"
-                    enemy.y += vel
+            if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
+               (player.y >= enemy.y - enemy.radius and player.y <= enemy.y + enemy.radius):
+                # Reset player position
+                player.x = player.startx
+                player.y = player.starty
+                death+=1
+                print(death)
+
+        if player.x>=560 and 230<=player.y<=290:
+            level=1
+            field,player=level_selector(level)
 
 
 
@@ -45,6 +49,20 @@ def animate():
 
 
 
+
+
+
+
+
+
+
+#DEATH COUNT PRINTING
+def draw_death_count():
+    glColor3f(1.0, 1.0, 1.0)
+    glRasterPos2f(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 20)
+    death_str = "Deaths: " + str(death)
+    for char in death_str:
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ord(char))
 
 
 
@@ -106,7 +124,7 @@ def draw():
     for enemy in field.enemy:
         enemy.draw()
     player.draw()
-
+    draw_death_count()
     glutSwapBuffers()
     glutPostRedisplay()
 
