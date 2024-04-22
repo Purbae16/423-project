@@ -2,7 +2,6 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from player import Player
-from field import Field
 from enemy import Enemy
 from level_selector import level_selector
 
@@ -11,8 +10,8 @@ SCREEN_HEIGHT = 600
 
 
 death=0
-level=2
-field, player =level_selector(level)
+level=1
+field, player = level_selector(level)
 
 
 
@@ -26,30 +25,34 @@ pressed_keys = set()
 def animate():
     global level,death, field, player
 
-    if level == 2:
+    if level == 1:
         field.move_enemies(5)
 
+        # for enemy in field.enemy:
+        #     if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
+        #        (player.y >= enemy.y - enemy.radius and player.y <= enemy.y + enemy.radius):
+        #         # Reset player position
+        #         player.x = player.startx
+        #         player.y = player.starty
+        #         death+=1
+        #         print(death)
         for enemy in field.enemy:
-            if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
-               (player.y >= enemy.y - enemy.radius and player.y <= enemy.y + enemy.radius):
+       
+            distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
+        
+            sum_of_radii = player.width + enemy.radius
+    
+            if distance <= sum_of_radii:
                 # Reset player position
                 player.x = player.startx
                 player.y = player.starty
-                death+=1
+                death += 1
                 print(death)
+
 
         if player.x>=560 and 230<=player.y<=290:
             level=1
             field,player=level_selector(level)
-
-
-
-
-
-
-
-
-
 
 
 
@@ -66,28 +69,6 @@ def draw_death_count():
 
 
 
-
-
-# def collide(self, enemy):
-#     # Calculate the distance between the player and the enemy
-#     dx = self.x - enemy.x
-#     dy = self.y - enemy.y
-#     distance = math.sqrt(dx**2 + dy**2)
-
-
-#     if distance < self.width + enemy.width:
-#         return True
-#     else:
-#         return False
-
-# def update():
-
-#     if player.collide(enemy) or player.collide(enemy2) or player.collide(enemy3) or player.collide(enemy4):
-#         player.reset()
-#         player.deaths += 1
-
-
-#     glutPostRedisplay()
 
 
 # Function to handle arrow key presses
