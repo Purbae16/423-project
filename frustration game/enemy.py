@@ -38,16 +38,19 @@ def midpoint(cir_x, cir_y, radius):
 
 
 class Enemy:
-    def __init__(self, x, y, radius, vel=0, color=(0.0,0.0,1.0), right = True):
+    def __init__(self, x, y, radius,direction, vel=0, color=(0.0,0.0,1.0),right=True ):
         self.x = x
         self.y = y
         self.radius = radius
         self.vel = vel
         self.color = color
+        self.direction=direction
         self.right = right
 
         glColor3f(0.0, 0.0, 1.0)
         midpoint(self.x, self.y, self.radius )
+
+
 
 
     def draw(self):

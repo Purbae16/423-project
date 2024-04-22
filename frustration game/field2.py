@@ -8,6 +8,7 @@ class Field2:
         self.tiles=[]
         self.safe=[]
         self.enemy=[]
+        self.temp=1
 
 
     def draw(self):
@@ -54,14 +55,24 @@ class Field2:
             x=200
             y=y-t.width
 
-        add = 0
-        for i in range(6):
-            e=Enemy(245+add, 345, 4)
-            add = add+60
-        add = 0
-        for j in range(6):
-            e=Enemy(212+add, 185, 4)
-            add = add+60
+
+        if self.temp==1:
+            add = 0
+            for i in range(6):
+                e = Enemy(245 + add, 345, 4,"UP",2)
+                self.enemy.append(e)
+                add = add + 60
+            add = 0
+            for j in range(6):
+                e = Enemy(212 + add, 185, 4,"DOWN",2)
+                self.enemy.append(e)
+                add = add + 60
+            self.temp+=1
+
+    def move_enemies(self):
+        for enemy in self.enemy:
+            enemy.y+=5
+            enemy.draw()
 
     
 

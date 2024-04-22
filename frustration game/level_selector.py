@@ -8,7 +8,7 @@ def level_selector(level):
         player = Player(260, 260, 20, 10)
     if level == 2:
         field = Field2()
-        player = Player(260, 260, 15, 10)
+        player = Player(120, 260, 15, 10)
 
 
 

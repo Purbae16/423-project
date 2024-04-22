@@ -108,6 +108,8 @@ class Player:
     def __init__(self, x, y, width, vel=5, color=(1.0, 0.0, 0.0)):
         self.x = x
         self.y = y
+        self.startx=x
+        self.starty=y
         self.width = width
         self.vel = vel
         self.color = color

@@ -15,10 +15,36 @@ level=2
 field, player =level_selector(level)
 
 
+
 # Keep track of pressed keys
 pressed_keys = set()
-#field = Field(250, 250, 200, 200) 
+#field = Field(250, 250, 200, 200)
 #player = Player(260, 260, 10, 10)
+
+
+
+def animate():
+    global level
+    vel=2
+    if level == 2:
+        for enemy in field.enemy:
+            if enemy.direction=="UP":
+                enemy.y-=vel
+                if enemy.y<=185:
+                    enemy.direction="DOWN"
+            if enemy.direction == "DOWN":
+                enemy.y += vel
+                if enemy.y >= 345:
+                    enemy.direction = "UP"
+                    enemy.y += vel
+
+
+
+
+
+
+
+
 
 
 
@@ -30,19 +56,19 @@ pressed_keys = set()
 #     dy = self.y - enemy.y
 #     distance = math.sqrt(dx**2 + dy**2)
 
-    
+
 #     if distance < self.width + enemy.width:
 #         return True
 #     else:
 #         return False
 
 # def update():
-    
+
 #     if player.collide(enemy) or player.collide(enemy2) or player.collide(enemy3) or player.collide(enemy4):
 #         player.reset()
 #         player.deaths += 1
 
-   
+
 #     glutPostRedisplay()
 
 
@@ -77,8 +103,10 @@ def handleMovement():
 def draw():
     glClear(GL_COLOR_BUFFER_BIT)
     field.draw()
+    for enemy in field.enemy:
+        enemy.draw()
     player.draw()
-    
+
     glutSwapBuffers()
     glutPostRedisplay()
 
@@ -104,6 +132,6 @@ glutDisplayFunc(draw)
 glutReshapeFunc(reshape)
 glutSpecialFunc(specialKeyDownListener)  # Register specialKeyDownListener for key press
 glutSpecialUpFunc(specialKeyUpListener)   # Register specialKeyUpListener for key release
-
+glutIdleFunc(animate)
 # Start the main loop
 glutMainLoop()
