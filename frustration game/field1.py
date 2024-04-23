@@ -22,7 +22,7 @@ class Field1:
         g_y=380
 
         l_x=200
-        l_y=260
+        l_y=290
 
         r_x=550
         r_y=350
@@ -49,7 +49,7 @@ class Field1:
                 self.safe+=[g]
                 l_x+=g.width
             l_x=200
-            l_y=260
+            l_y=290
 
         for i in range(1):
             for j in range(1):
@@ -61,7 +61,7 @@ class Field1:
 
 
 
-        for i in range(4):
+        for i in range(3):
             for j in range(10):
                 if len(self.tiles) % 2 == 0:
                     glColor3f(0.8,0.8,0.8)
@@ -82,12 +82,12 @@ class Field1:
         if self.temp==1:
             add = 0
             for i in range(2):
-                e = Enemy(525, 275 + add, 4,"RIGHT",2)
+                e = Enemy(525, 290 + add, 4,"RIGHT",2)
                 self.enemy.append(e)
                 add = add + 60
             add = 0
             for j in range(2):
-                e = Enemy(252, 245 + add, 4,"LEFT",2)
+                e = Enemy(252, 255 + add, 4,"LEFT",2)
                 self.enemy.append(e)
                 add = add + 60
             self.temp+=1
