@@ -83,7 +83,23 @@ def animate():
             field, player = level_selector(level)
 
     if level == 3:
-        pass
+
+        for enemy in field.enemy:
+
+            distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
+
+            sum_of_radii = (player.width / 2) + enemy.radius
+
+            if distance <= sum_of_radii:
+                # Reset player position
+                player.x = player.startx
+                player.y = player.starty
+                death += 1
+                print(death)
+
+        if player.x >= 560 and 230 <= player.y <= 290:
+            level += 1
+            field, player = level_selector(level)
 
         
     

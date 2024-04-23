@@ -6,6 +6,7 @@ from enemy import Enemy
 class Field3:
     def __init__(self):
         self.tiles=[]
+        self.extra=[]
         self.safe=[]
         self.enemy=[]
         self.temp=1
@@ -34,9 +35,10 @@ class Field3:
             x=320
             y=y-t.width
 
-        glColor3f(0.6,0.6,0.6)
-        t = Tile(x+90, y+180)
-        self.tiles += [t]
+            glColor3f(0.6, 0.6, 0.6)
+            t = Tile(320 + 90, y+90)
+            self.extra += [t]
+
 
         if self.temp==1:
             add = 0
@@ -60,7 +62,7 @@ class Field3:
                 self.enemy.append(e)
                 add = add + 30
             self.temp+=1
-    
+
 
         
     
