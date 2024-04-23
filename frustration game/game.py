@@ -3,6 +3,7 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from player import Player
 from enemy import Enemy
+from midpoint import Line
 from level_selector import level_selector
 
 SCREEN_WIDTH = 800
@@ -26,7 +27,7 @@ def animate():
     global level,death, field, player
 
     if level == 1:
-        field.move_enemies(5)
+        field.move_enemies(8)
 
         # for enemy in field.enemy:
         #     if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
@@ -41,16 +42,14 @@ def animate():
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
         
             sum_of_radii = player.width + enemy.radius
-            print(player.x,player.y,enemy.x,enemy.y)
-            print(distance,sum_of_radii)
+
+    
             if distance <= sum_of_radii:
                 # Reset player position
                 player.x = player.startx
                 player.y = player.starty
                 death += 1
                 print(death)
-            else:
-                print("no collison")
 
 
         if player.x>=560 and 250<=player.y<=500:
@@ -59,7 +58,7 @@ def animate():
    
 
     if level == 2:
-        field.move_enemies(5)
+        field.move_enemies(8)
 
         # for enemy in field.enemy:
         #     if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
@@ -73,7 +72,7 @@ def animate():
 
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
 
-            sum_of_radii = (player.width / 2) + enemy.radius
+            sum_of_radii = player.width + enemy.radius
 
             if distance <= sum_of_radii:
                 # Reset player position
@@ -95,13 +94,60 @@ def animate():
 #DEATH COUNT PRINTING
 def draw_death_count():
     glColor3f(1.0, 1.0, 1.0)
-    glRasterPos2f(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 20)
+    glRasterPos2f(SCREEN_WIDTH - 450, SCREEN_HEIGHT - 20)
     death_str = "Deaths: " + str(death)
     for char in death_str:
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ord(char))
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))
+
+button_size = 30
+padding = 20
+button_colors = (0.28, 0.82, 0.8), (1, 0.76, 0), (1, 0, 0)
+button_1x, button_2x = padding, SCREEN_WIDTH - button_size - padding
+button_y = SCREEN_HEIGHT - padding - button_size
+game_over = False
+
+def draw_restart():
+    global button_1x, button_y, button_size
+    line_instance = Line()  
+    x, y = button_1x, button_y
+    point_1 = x, y + button_size // 2
+    point_2 = x + button_size // 2, y
+    point_3 = x + button_size, y + button_size // 2
+    point_4 = x + button_size // 2, y + button_size
+    line_instance.drawLine(*point_1, *point_2)
+    line_instance.drawLine(*point_1, *point_3)
+    line_instance.drawLine(*point_1, *point_4)
+
+def draw_exit():
+    global button_2x, button_y, button_size, button_colors
+    x, y = button_2x, button_y
+    line_instance = Line() 
+    point_1 = x, y + button_size
+    point_2 = x, y
+    point_3 = x + button_size, y
+    point_4 = x + button_size, y + button_size
+    line_instance.drawLine(*point_1, *point_3)
+    line_instance.drawLine(*point_2, *point_4)
 
 
-
+def mouseListener(button, state, x, y):
+    if button==GLUT_LEFT_BUTTON:
+        if(state == GLUT_DOWN):
+            global SCREEN_HEIGHT, button_1x, button_2x, button_y, button_size, game_over
+            y = SCREEN_HEIGHT - y
+            if button_y <= y <= button_y + button_size:
+                if button_1x <= x <= button_1x + button_size:    #restart button
+                    game_over = False
+                    player.x = player.startx
+                    player.y = player.starty
+                    field.move_enemies(5)
+                    print("Starting Over!")
+                elif button_2x <= x <= button_2x + button_size:  #exit button
+                    print(f'Goodbye!')
+                    glutLeaveMainLoop() 
+  
+                
+    glutPostRedisplay()
 
 
 # Function to handle arrow key presses
@@ -135,10 +181,13 @@ def handleMovement():
 def draw():
     glClear(GL_COLOR_BUFFER_BIT)
     field.draw()
+    draw_death_count()
     for enemy in field.enemy:
         enemy.draw()
     player.draw()
-    draw_death_count()
+    draw_restart()
+    draw_exit()
+
     glutSwapBuffers()
     glutPostRedisplay()
 
@@ -165,5 +214,6 @@ glutReshapeFunc(reshape)
 glutSpecialFunc(specialKeyDownListener)  # Register specialKeyDownListener for key press
 glutSpecialUpFunc(specialKeyUpListener)   # Register specialKeyUpListener for key release
 glutIdleFunc(animate)
+glutMouseFunc(mouseListener)
 # Start the main loop
 glutMainLoop()
