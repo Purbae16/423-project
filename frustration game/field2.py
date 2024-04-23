@@ -81,6 +81,9 @@ class Field2:
                 if enemy.y >= 345:
                     enemy.direction = "UP"
                     enemy.y += vel
+            
+ 
+
     
 
 
