@@ -37,22 +37,26 @@ def animate():
         #         death+=1
         #         print(death)
         for enemy in field.enemy:
-       
+
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
         
-            sum_of_radii = (player.width/2) + enemy.radius
-    
+            sum_of_radii = player.width + enemy.radius
+            print(player.x,player.y,enemy.x,enemy.y)
+            print(distance,sum_of_radii)
             if distance <= sum_of_radii:
                 # Reset player position
                 player.x = player.startx
                 player.y = player.starty
                 death += 1
                 print(death)
+            else:
+                print("no collison")
 
 
         if player.x>=560 and 250<=player.y<=500:
             level+=1
             field,player=level_selector(level)
+   
 
     if level == 2:
         field.move_enemies(5)
@@ -81,6 +85,7 @@ def animate():
         if player.x >= 560 and 230 <= player.y <= 290:
             level += 1
             field, player = level_selector(level)
+        
 
 
 
