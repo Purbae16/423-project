@@ -46,15 +46,14 @@ class Enemy:
         self.color = color
         self.direction=direction
         self.right = right
-
-        glColor3f(0.0, 0.0, 1.0)
+        
         midpoint(self.x, self.y, self.radius )
 
 
 
 
     def draw(self):
-        glColor3f(0.0, 0.0, 1.0)
+        glColor3f(*self.color)
         midpoint(self.x, self.y, self.radius )
         
 

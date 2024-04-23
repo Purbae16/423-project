@@ -10,7 +10,8 @@ SCREEN_HEIGHT = 600
 
 
 death=0
-level=3
+level=1
+collected = False
 field, player = level_selector(level)
 
 
@@ -23,7 +24,7 @@ pressed_keys = set()
 
 
 def animate():
-    global level,death, field, player
+    global level,death, field, player, collected
 
     if level == 1:
         field.move_enemies(7)
@@ -78,11 +79,14 @@ def animate():
                 death += 1
                 print(death)
 
+
+
         if player.x >= 560 and 230 <= player.y <= 290:
             level += 1
             field, player = level_selector(level)
 
     if level == 3:
+        field.move_enemies(1)
 
         for enemy in field.enemy:
 
@@ -94,11 +98,23 @@ def animate():
                 # Reset player position
                 player.x = player.startx
                 player.y = player.starty
+                collected = False
                 death += 1
                 print(death)
 
-        if player.x >= 560 and 230 <= player.y <= 290:
-            level += 1
+        
+        ball = field.ball
+        distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
+
+        sum_of_radii = (player.width / 2) + ball.radius
+
+        if distance <= sum_of_radii:
+            
+            collected = True
+    
+
+        if player.y <= 250 and  335<= player.x <= 400 and collected==True:
+            level = 1
             field, player = level_selector(level)
 
         
@@ -155,6 +171,8 @@ def draw():
     field.draw()
     for enemy in field.enemy:
         enemy.draw()
+    if hasattr(field, 'ball') and collected==False:
+        field.ball.draw()
     player.draw()
     draw_death_count()
     glutSwapBuffers()
