@@ -40,7 +40,7 @@ def animate():
        
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
         
-            sum_of_radii = player.width + enemy.radius
+            sum_of_radii = (player.width/2) + enemy.radius
     
             if distance <= sum_of_radii:
                 # Reset player position
