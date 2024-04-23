@@ -121,8 +121,9 @@ class Player:
 
         print("Next Position:", next_x, next_y)
 
+
         # Check if the next position is within the game region
-        for tile in field.tiles + field.safe:
+        for tile in field.tiles + field.safe + (field.extra if hasattr(field, 'extra') and field.extra else []):
             if (next_x + self.width >= tile.startx and next_x <= tile.startx + tile.width) and \
                     (next_y >= tile.starty - tile.height and next_y <= tile.starty):
                 # The next position is within a tile, so update the player's position
