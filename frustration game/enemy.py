@@ -4,7 +4,7 @@ from OpenGL.GLU import *
 import random as rand
 
 def drawCircle(x, y, cir_x, cir_y):
-    glPointSize(7)
+    glPointSize(8)
     glBegin(GL_POINTS)
     glVertex2f(x + cir_x, y + cir_y)
     glVertex2f(y + cir_x, x + cir_y)

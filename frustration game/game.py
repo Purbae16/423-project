@@ -27,7 +27,7 @@ def animate():
     global level,death, field, player
 
     if level == 2:
-        field.move_enemies(5)
+        field.move_enemies(7)
 
         for enemy in field.enemy:
             if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \

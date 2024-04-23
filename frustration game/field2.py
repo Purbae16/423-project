@@ -59,12 +59,12 @@ class Field2:
         if self.temp==1:
             add = 0
             for i in range(6):
-                e = Enemy(245 + add, 345, 4,"UP",2)
+                e = Enemy(245 + add, 345, 5,"UP",2)
                 self.enemy.append(e)
                 add = add + 60
             add = 0
             for j in range(6):
-                e = Enemy(212 + add, 185, 4,"DOWN",2)
+                e = Enemy(212 + add, 185, 5,"DOWN",2)
                 self.enemy.append(e)
                 add = add + 60
             self.temp+=1
