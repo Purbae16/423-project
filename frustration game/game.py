@@ -86,7 +86,7 @@ def animate():
             field, player = level_selector(level)
 
     if level == 3:
-        field.move_enemies(1)
+        field.move_enemies(3)
 
         for enemy in field.enemy:
 
