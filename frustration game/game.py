@@ -10,7 +10,7 @@ SCREEN_HEIGHT = 600
 
 
 death=0
-level=1
+level=2
 field, player = level_selector(level)
 
 
@@ -51,8 +51,36 @@ def animate():
 
 
         if player.x>=560 and 230<=player.y<=290:
-            level=1
+            level+=1
             field,player=level_selector(level)
+
+    if level == 2:
+        field.move_enemies(5)
+
+        # for enemy in field.enemy:
+        #     if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
+        #        (player.y >= enemy.y - enemy.radius and player.y <= enemy.y + enemy.radius):
+        #         # Reset player position
+        #         player.x = player.startx
+        #         player.y = player.starty
+        #         death+=1
+        #         print(death)
+        for enemy in field.enemy:
+
+            distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
+
+            sum_of_radii = (player.width / 2) + enemy.radius
+
+            if distance <= sum_of_radii:
+                # Reset player position
+                player.x = player.startx
+                player.y = player.starty
+                death += 1
+                print(death)
+
+        if player.x >= 560 and 230 <= player.y <= 290:
+            level += 1
+            field, player = level_selector(level)
 
 
 
