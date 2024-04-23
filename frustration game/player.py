@@ -119,6 +119,8 @@ class Player:
         next_x = self.x + direction_x * self.vel
         next_y = self.y + direction_y * self.vel
 
+        print("Next Position:", next_x, next_y)
+
         # Check if the next position is within the game region
         for tile in field.tiles + field.safe:
             if (next_x + self.width >= tile.startx and next_x <= tile.startx + tile.width) and \

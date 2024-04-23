@@ -10,7 +10,7 @@ SCREEN_HEIGHT = 600
 
 
 death=0
-level=2
+level=3
 field, player = level_selector(level)
 
 
@@ -81,6 +81,12 @@ def animate():
         if player.x >= 560 and 230 <= player.y <= 290:
             level += 1
             field, player = level_selector(level)
+
+    if level == 3:
+        field, player = level_selector(level)
+        
+    
+    
 
 
 

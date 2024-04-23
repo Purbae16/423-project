@@ -10,7 +10,7 @@ class Tile:  # x0 is top left, x1 is top right, x2 is bottom left, x3 is bottom 
         self.startx=x0
         self.starty=y0
 
-        glColor3f(1, 1, 1)
+        #glColor3f(1, 1, 1)
         Line(x0,y0,x0+self.width,y0)
         Line(x0,y0,x0,y0-self.height)
         Line(x0,y0-self.height,x0+self.width,y0-self.height)
