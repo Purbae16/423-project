@@ -17,8 +17,6 @@ class Field3:
 
         x=320
         y=300
-        g_x=560
-        g_y=290
 
         for i in range(4):
             for j in range(4):
@@ -39,6 +37,29 @@ class Field3:
         glColor3f(0.6,0.6,0.6)
         t = Tile(x+90, y+180)
         self.tiles += [t]
+
+        if self.temp==1:
+            add = 0
+            for i in range(5):
+                e = Enemy(x+4 + add, y+6, 5,"UP",2)
+                self.enemy.append(e)
+                add = add + 27
+            add = 0
+            for j in range(4):
+                e = Enemy(x + 4 + add, y+120, 5,"DOWN",2)
+                self.enemy.append(e)
+                add = add + 27
+            add = 0
+            for j in range(4):
+                e = Enemy(x + 4, y+120+add, 5,"DOWN",2)
+                self.enemy.append(e)
+                add = add + 30
+            add = 0
+            for j in range(4):
+                e = Enemy(x + 90, y+add, 5,"DOWN",2)
+                self.enemy.append(e)
+                add = add + 30
+            self.temp+=1
     
 
         

@@ -83,7 +83,8 @@ def animate():
             field, player = level_selector(level)
 
     if level == 3:
-        field, player = level_selector(level)
+        pass
+
         
     
     
