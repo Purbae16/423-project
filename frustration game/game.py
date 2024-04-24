@@ -11,7 +11,7 @@ SCREEN_HEIGHT = 600
 
 
 death=0
-level=1
+level=2
 collected = False
 if level!=0:
     field, player = level_selector(level)
@@ -50,7 +50,7 @@ def animate():
             field,player=level_selector(level)
 
     if level == 2:
-        field.move_enemies(8)
+        field.move_enemies(2)
 
         for enemy in field.enemy:
 
@@ -70,9 +70,10 @@ def animate():
             ball = field.ball
             distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
 
-            sum_of_radii = (player.width / 2) + ball.radius
+            sum_of_radii = (player.width ) + ball.radius
 
             if distance <= sum_of_radii:
+                print("works")
                 
                 collected = True
 
@@ -83,7 +84,7 @@ def animate():
             field, player = level_selector(level)
 
     if level == 3:
-        field.move_enemies(5)
+        field.move_enemies(3)
 
         for enemy in field.enemy:
 
@@ -103,7 +104,7 @@ def animate():
             ball = field.ball
             distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
 
-            sum_of_radii = (player.width / 2) + ball.radius
+            sum_of_radii = (player.width ) + ball.radius
 
             if distance <= sum_of_radii:
                 
