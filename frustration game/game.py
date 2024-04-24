@@ -29,15 +29,15 @@ def animate():
     global level,death, field, player, collected
 
     if level == 1:
-        field.move_enemies(7)
+        field.move_enemies(10)
 
         for enemy in field.enemy:
        
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
         
-            sum_of_radii = (player.width/2) + enemy.radius
+            sum = player.width + enemy.radius
     
-            if distance <= sum_of_radii:
+            if distance <= sum:
                 # Reset player position
                 player.x = player.startx
                 player.y = player.starty
@@ -50,15 +50,15 @@ def animate():
             field,player=level_selector(level)
 
     if level == 2:
-        field.move_enemies(7)
+        field.move_enemies(10)
 
         for enemy in field.enemy:
 
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
 
-            sum_of_radii = (player.width / 2) + enemy.radius
+            sum = player.width + enemy.radius
 
-            if distance <= sum_of_radii:
+            if distance <= sum:
                 # Reset player position
                 collected = False
                 player.x = player.startx
@@ -83,15 +83,15 @@ def animate():
             field, player = level_selector(level)
 
     if level == 3:
-        field.move_enemies(3)
+        field.move_enemies(5)
 
         for enemy in field.enemy:
 
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
 
-            sum_of_radii = (player.width / 2) + enemy.radius
+            sum = player.width + enemy.radius
 
-            if distance <= sum_of_radii:
+            if distance <= sum:
                 # Reset player position
                 player.x = player.startx
                 player.y = player.starty
@@ -103,9 +103,9 @@ def animate():
             ball = field.ball
             distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
 
-            sum_of_radii = (player.width / 2) + ball.radius
+            sum = (player.width / 2) + ball.radius
 
-            if distance <= sum_of_radii:
+            if distance <= sum:
                 
                 collected = True
     
@@ -162,26 +162,26 @@ game_over = False
 
 def draw_restart():
     global button_1x, button_y, button_size
-    line_instance = Line()  
+    line = Line()  
     x, y = button_1x, button_y
     point_1 = x, y + button_size // 2
     point_2 = x + button_size // 2, y
     point_3 = x + button_size, y + button_size // 2
     point_4 = x + button_size // 2, y + button_size
-    line_instance.drawLine(*point_1, *point_2)
-    line_instance.drawLine(*point_1, *point_3)
-    line_instance.drawLine(*point_1, *point_4)
+    line.drawLine(*point_1, *point_2)
+    line.drawLine(*point_1, *point_3)
+    line.drawLine(*point_1, *point_4)
 
 def draw_exit():
     global button_2x, button_y, button_size, button_colors
     x, y = button_2x, button_y
-    line_instance = Line() 
+    line = Line() 
     point_1 = x, y + button_size
     point_2 = x, y
     point_3 = x + button_size, y
     point_4 = x + button_size, y + button_size
-    line_instance.drawLine(*point_1, *point_3)
-    line_instance.drawLine(*point_2, *point_4)
+    line.drawLine(*point_1, *point_3)
+    line.drawLine(*point_2, *point_4)
 
 
 def mouseListener(button, state, x, y):
