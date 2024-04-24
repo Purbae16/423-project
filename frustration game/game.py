@@ -29,7 +29,7 @@ def animate():
     global level,death, field, player, collected
 
     if level == 1:
-        field.move_enemies(7)
+        field.move_enemies(9)
 
         for enemy in field.enemy:
        
@@ -50,7 +50,7 @@ def animate():
             field,player=level_selector(level)
 
     if level == 2:
-        field.move_enemies(7)
+        field.move_enemies(8)
 
         for enemy in field.enemy:
 
@@ -83,7 +83,7 @@ def animate():
             field, player = level_selector(level)
 
     if level == 3:
-        field.move_enemies(3)
+        field.move_enemies(5)
 
         for enemy in field.enemy:
 
@@ -147,11 +147,16 @@ def game_complete():
 
 #DEATH COUNT PRINTING
 def draw_death_count():
+    global level
     glColor3f(1.0, 1.0, 1.0)
     glRasterPos2f(SCREEN_WIDTH - 450, SCREEN_HEIGHT - 20)
     death_str = "Deaths: " + str(death)
     for char in death_str:
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))
+    glRasterPos2f(SCREEN_WIDTH - 425, SCREEN_HEIGHT - 35)
+    lvl_str = str(level)+"/3"
+    for char in lvl_str:
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ord(char))
 
 button_size = 30
 padding = 20
