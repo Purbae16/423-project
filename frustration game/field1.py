@@ -10,7 +10,6 @@ class Field1:
         self.enemy=[]
         self.temp=1
 
-
     def draw(self):
 
         green_x=90
@@ -69,7 +68,7 @@ class Field1:
                     self.tiles += [t]
                     x += t.width
                 else:
-                    glColor3f(0.6,0.6,0.6)
+                    glColor3f(0.9, 0.9, 1.0)
                     t = Tile(x, y)
                     self.tiles += [t]
                     x += t.width

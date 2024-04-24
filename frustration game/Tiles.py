@@ -26,7 +26,7 @@ class Greentile:
         self.startx=x0
         self.starty=y0
 
-        glColor3f(0.0, 0.8, 0.1)
+        glColor3f(0.5, 0.8, 0.5)
         Line(x0,y0,x0+self.width,y0)
         Line(x0,y0,x0,y0-self.height)
         Line(x0,y0-self.height,x0+self.width,y0-self.height)

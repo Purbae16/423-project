@@ -8,6 +8,7 @@ class Field2:
         self.tiles=[]
         self.safe=[]
         self.enemy=[]
+        self.ball = None
         self.temp=1
 
 
@@ -47,7 +48,7 @@ class Field2:
                     self.tiles += [t]
                     x += t.width
                 else:
-                    glColor3f(0.6,0.6,0.6)
+                    glColor3f(0.9, 0.9, 1.0)
                     t = Tile(x, y)
                     self.tiles += [t]
                     x += t.width
@@ -67,6 +68,8 @@ class Field2:
                 e = Enemy(212 + add, 185, 5,"DOWN",2)
                 self.enemy.append(e)
                 add = add + 60
+            ball = Enemy(x+180, y+95, 2,"DOWN",0,(0.9,0.7,0.0))
+            self.ball = ball
             self.temp+=1
 
     def move_enemies(self,vel):

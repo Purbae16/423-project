@@ -13,7 +13,6 @@ class Field3:
         self.temp=1
     
     def draw(self):
-
         green_x=365
         green_y=250
 
@@ -28,7 +27,7 @@ class Field3:
                     self.tiles += [t]
                     x += t.width
                 else:
-                    glColor3f(0.6,0.6,0.6)
+                    glColor3f(0.9, 0.9, 1.0)
                     t = Tile(x, y)
                     self.tiles += [t]
                     x += t.width
@@ -36,7 +35,7 @@ class Field3:
             x=320
             y=y-t.width
 
-            glColor3f(0.6, 0.6, 0.6)
+            #glColor3f(0.6, 0.6, 0.6)
             t = Tile(320 + 90, y+90)
             self.extra += [t]
 

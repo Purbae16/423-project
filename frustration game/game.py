@@ -29,14 +29,6 @@ def animate():
     if level == 1:
         field.move_enemies(7)
 
-        # for enemy in field.enemy:
-        #     if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
-        #        (player.y >= enemy.y - enemy.radius and player.y <= enemy.y + enemy.radius):
-        #         # Reset player position
-        #         player.x = player.startx
-        #         player.y = player.starty
-        #         death+=1
-        #         print(death)
         for enemy in field.enemy:
        
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
@@ -51,21 +43,13 @@ def animate():
                 print(death)
 
 
-        if player.x>=560 and 230<=player.y<=290:
+        if player.x>=550:
             level+=1
             field,player=level_selector(level)
 
     if level == 2:
-        field.move_enemies(5)
+        field.move_enemies(7)
 
-        # for enemy in field.enemy:
-        #     if (player.x + player.width >= enemy.x - enemy.radius and player.x <= enemy.x + enemy.radius) and \
-        #        (player.y >= enemy.y - enemy.radius and player.y <= enemy.y + enemy.radius):
-        #         # Reset player position
-        #         player.x = player.startx
-        #         player.y = player.starty
-        #         death+=1
-        #         print(death)
         for enemy in field.enemy:
 
             distance = ((player.x - enemy.x) ** 2 + (player.y - enemy.y) ** 2) ** 0.5
@@ -74,15 +58,26 @@ def animate():
 
             if distance <= sum_of_radii:
                 # Reset player position
+                collected = False
                 player.x = player.startx
                 player.y = player.starty
                 death += 1
                 print(death)
 
+        if field.ball!=None:
+            ball = field.ball
+            distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
+
+            sum_of_radii = (player.width / 2) + ball.radius
+
+            if distance <= sum_of_radii:
+                
+                collected = True
 
 
-        if player.x >= 560 and 230 <= player.y <= 290:
+        if player.x >= 560 and 230 <= player.y <= 290 and collected==True:
             level += 1
+            collected = False
             field, player = level_selector(level)
 
     if level == 3:
@@ -102,30 +97,38 @@ def animate():
                 death += 1
                 print(death)
 
-        
-        ball = field.ball
-        distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
+        if field.ball!=None:
+            ball = field.ball
+            distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
 
-        sum_of_radii = (player.width / 2) + ball.radius
+            sum_of_radii = (player.width / 2) + ball.radius
 
-        if distance <= sum_of_radii:
-            
-            collected = True
+            if distance <= sum_of_radii:
+                
+                collected = True
     
-
+        
         if player.y <= 250 and  335<= player.x <= 400 and collected==True:
-            level = 1
-            field, player = level_selector(level)
+            collected = False
+            level = 0
 
         
-    
-    
+def game_complete():
+    glColor3f(1.0, 1.0, 1.0)
+    glRasterPos2f(800 - 470, 600 - 200)
+    over_str = "WELL DONE!"
+    for char in over_str:
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, ord(char))
 
+    glRasterPos2f(800 - 520, 600 - 270)
+    rs_str = "RESTART"
+    for char in rs_str:
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, ord(char))
 
-
-
-
-
+    glRasterPos2f(800 - 350, 600 - 270)
+    quit_str = "QUIT"
+    for char in quit_str:
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, ord(char))
 #DEATH COUNT PRINTING
 def draw_death_count():
     glColor3f(1.0, 1.0, 1.0)
@@ -140,13 +143,15 @@ def draw_death_count():
 
 # Function to handle arrow key presses
 def specialKeyDownListener(key, x, y):
-    pressed_keys.add(key)
-    handleMovement()
+    if level!=0:
+        pressed_keys.add(key)
+        handleMovement()
 
 # Function to handle arrow key releases
 def specialKeyUpListener(key, x, y):
-    pressed_keys.remove(key)
-    handleMovement()
+    if level!=0:
+        pressed_keys.remove(key)
+        handleMovement()
 
 # Function to handle player movement
 def handleMovement():
@@ -168,13 +173,17 @@ def handleMovement():
 # Function to draw the scene
 def draw():
     glClear(GL_COLOR_BUFFER_BIT)
-    field.draw()
-    for enemy in field.enemy:
-        enemy.draw()
-    if hasattr(field, 'ball') and collected==False:
-        field.ball.draw()
-    player.draw()
-    draw_death_count()
+
+    if level !=0:
+        field.draw()
+        for enemy in field.enemy:
+            enemy.draw()
+        if hasattr(field, 'ball') and collected==False:
+            field.ball.draw()
+        player.draw()
+        draw_death_count()
+    else:
+        game_complete()
     glutSwapBuffers()
     glutPostRedisplay()
 
@@ -191,8 +200,8 @@ def reshape(width, height):
 glutInit()
 glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB)
 glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT)
-glutCreateWindow(b"OpenGL Player and Enemy")
-glClearColor(0.0, 0.0, 0.0, 1.0)
+glutCreateWindow(b"Frustration Game")
+glClearColor(0.8, 0.7, 0.9, 1.0)
 gluOrtho2D(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT)
 
 # Register callbacks
