@@ -11,7 +11,7 @@ SCREEN_HEIGHT = 600
 
 
 death=0
-level=2
+level=1
 collected = False
 if level!=0:
     field, player = level_selector(level)
@@ -50,7 +50,7 @@ def animate():
             field,player=level_selector(level)
 
     if level == 2:
-        field.move_enemies(2)
+        field.move_enemies(5)
 
         for enemy in field.enemy:
 
@@ -70,10 +70,9 @@ def animate():
             ball = field.ball
             distance = ((player.x - ball.x) ** 2 + (player.y - ball.y) ** 2) ** 0.5
 
-            sum_of_radii = (player.width ) + ball.radius
+            sum_of_radii = (player.width) + ball.radius
 
             if distance <= sum_of_radii:
-                print("works")
                 
                 collected = True
 
@@ -191,15 +190,17 @@ def draw_exit():
 
 
 def mouseListener(button, state, x, y):
-    global SCREEN_HEIGHT, button_1x, button_2x, button_y, button_size, game_over, SCREEN_WIDTH, level, field, player
+    global SCREEN_HEIGHT, button_1x, button_2x, button_y, button_size, game_over, SCREEN_WIDTH, level, field, player,collected
     if button==GLUT_LEFT_BUTTON and level!=0:
         if(state == GLUT_DOWN):
             y = SCREEN_HEIGHT - y
             if button_y <= y <= button_y + button_size:
                 if button_1x <= x <= button_1x + button_size:    #restart button
                     game_over = False
+                    collected = False
                     field, player = level_selector(level)
                     print("Starting Over!")
+
                 elif button_2x <= x <= button_2x + button_size:  #exit button
                     print(f'Goodbye!')
                     glutLeaveMainLoop() 
