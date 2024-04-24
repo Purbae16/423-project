@@ -3,6 +3,7 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 from player import Player
 from enemy import Enemy
+from midpoint import Line
 from level_selector import level_selector
 
 SCREEN_WIDTH = 800
@@ -12,7 +13,8 @@ SCREEN_HEIGHT = 600
 death=0
 level=1
 collected = False
-field, player = level_selector(level)
+if level!=0:
+    field, player = level_selector(level)
 
 
 
@@ -114,6 +116,7 @@ def animate():
 
         
 def game_complete():
+    line = Line()
     glColor3f(1.0, 1.0, 1.0)
     glRasterPos2f(800 - 470, 600 - 200)
     over_str = "WELL DONE!"
@@ -129,14 +132,86 @@ def game_complete():
     quit_str = "QUIT"
     for char in quit_str:
         glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, ord(char))
+
+    line.drawLine(278,356, 390, 356)
+    line.drawLine(390, 356, 390, 320)
+    line.drawLine(278,320, 278, 356)
+    line.drawLine(278, 320, 390, 320)
+
+    line.drawLine(278+150,356, 390+150, 356)
+    line.drawLine(390+150, 356, 390+150, 320)
+    line.drawLine(278+150,320, 278+150, 356)
+    line.drawLine(278+150, 320, 390+150, 320)
+
+
+
 #DEATH COUNT PRINTING
 def draw_death_count():
     glColor3f(1.0, 1.0, 1.0)
-    glRasterPos2f(SCREEN_WIDTH - 100, SCREEN_HEIGHT - 20)
+    glRasterPos2f(SCREEN_WIDTH - 450, SCREEN_HEIGHT - 20)
     death_str = "Deaths: " + str(death)
     for char in death_str:
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ord(char))
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, ord(char))
 
+button_size = 30
+padding = 20
+button_colors = (0.28, 0.82, 0.8), (1, 0.76, 0), (1, 0, 0)
+button_1x, button_2x = padding, SCREEN_WIDTH - button_size - padding
+button_y = SCREEN_HEIGHT - padding - button_size
+game_over = False
+
+def draw_restart():
+    global button_1x, button_y, button_size
+    line_instance = Line()  
+    x, y = button_1x, button_y
+    point_1 = x, y + button_size // 2
+    point_2 = x + button_size // 2, y
+    point_3 = x + button_size, y + button_size // 2
+    point_4 = x + button_size // 2, y + button_size
+    line_instance.drawLine(*point_1, *point_2)
+    line_instance.drawLine(*point_1, *point_3)
+    line_instance.drawLine(*point_1, *point_4)
+
+def draw_exit():
+    global button_2x, button_y, button_size, button_colors
+    x, y = button_2x, button_y
+    line_instance = Line() 
+    point_1 = x, y + button_size
+    point_2 = x, y
+    point_3 = x + button_size, y
+    point_4 = x + button_size, y + button_size
+    line_instance.drawLine(*point_1, *point_3)
+    line_instance.drawLine(*point_2, *point_4)
+
+
+def mouseListener(button, state, x, y):
+    global SCREEN_HEIGHT, button_1x, button_2x, button_y, button_size, game_over, SCREEN_WIDTH, level, field, player
+    if button==GLUT_LEFT_BUTTON and level!=0:
+        if(state == GLUT_DOWN):
+            y = SCREEN_HEIGHT - y
+            if button_y <= y <= button_y + button_size:
+                if button_1x <= x <= button_1x + button_size:    #restart button
+                    game_over = False
+                    field, player = level_selector(level)
+                    print("Starting Over!")
+                elif button_2x <= x <= button_2x + button_size:  #exit button
+                    print(f'Goodbye!')
+                    glutLeaveMainLoop() 
+    if button==GLUT_LEFT_BUTTON and level==0:
+        if(state == GLUT_DOWN):
+            y = SCREEN_HEIGHT - y
+            if 320 <= y <= 356:
+                if 278 <= x <= 390:    #restart button
+                    game_over = False
+                    level = 1
+                    field, player = level_selector(level)
+                    print("Starting Over!")
+                elif 278+150 <= x <= 390+150:  #exit button
+                    print(f'Goodbye!')
+                    glutLeaveMainLoop() 
+  
+                
+    glutPostRedisplay()
 
 
 
@@ -182,6 +257,8 @@ def draw():
             field.ball.draw()
         player.draw()
         draw_death_count()
+        draw_restart()
+        draw_exit()
     else:
         game_complete()
     glutSwapBuffers()
@@ -208,7 +285,8 @@ gluOrtho2D(0, SCREEN_WIDTH, 0, SCREEN_HEIGHT)
 glutDisplayFunc(draw)
 glutReshapeFunc(reshape)
 glutSpecialFunc(specialKeyDownListener)  # Register specialKeyDownListener for key press
-glutSpecialUpFunc(specialKeyUpListener)   # Register specialKeyUpListener for key release
+glutSpecialUpFunc(specialKeyUpListener)
+glutMouseFunc(mouseListener)  # Register specialKeyUpListener for key release
 glutIdleFunc(animate)
 # Start the main loop
 glutMainLoop()
